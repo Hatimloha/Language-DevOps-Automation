@@ -1,0 +1,18 @@
+---
+- name: Install PostgreSQL
+  package:
+    name: postgresql
+    state: present
+
+- name: Ensure PostgreSQL is started and enabled
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: Create database
+  postgresql_db:
+    name: "{{ db_name | default('myapp') }}"
+    state: present
+  become: yes
+  become_user: postgres

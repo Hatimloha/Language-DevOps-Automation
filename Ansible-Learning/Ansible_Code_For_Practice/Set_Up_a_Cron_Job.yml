@@ -1,0 +1,12 @@
+---
+- name: Set Up a Cron Job
+  hosts: all
+  become: yes
+
+  tasks: 
+    - name: Add cron job to clean temp files
+      cron:
+        name: "clean temporary files"
+        minute: "0"
+        hour: "3"
+        job: "user/bin/find /tmp - type f -delete"  

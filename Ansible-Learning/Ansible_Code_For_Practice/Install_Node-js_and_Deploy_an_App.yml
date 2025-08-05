@@ -1,0 +1,22 @@
+---
+- name: Install Node.js and Deploy an App
+  hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Install Node.js
+      apt:
+        name: 
+          - Node.js
+          - npm
+        state: present
+
+    - name: Copy Node.js app
+      copy:
+        src: ./app.js
+        dest: /home/ubuntu/app.js
+
+    - name: Run Node.js app
+      command: node /home/ubuntu/app.js 
+
+

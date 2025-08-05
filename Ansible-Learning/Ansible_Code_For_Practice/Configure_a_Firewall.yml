@@ -1,0 +1,18 @@
+---
+- name: Configure a Firewall
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Allow SSH and HTTP traffic
+    ufw:
+      rule: Allow
+      port: "{{item}}"
+      proto: tcp
+    with_items:
+    - 22
+    - 80
+
+  - name: Enable UFW
+    ufw:
+      state: enabled

@@ -1,0 +1,10 @@
+---
+- name: set system time
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Set system time
+      timezone:
+        name: UTC
+        

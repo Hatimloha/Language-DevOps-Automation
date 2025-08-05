@@ -1,0 +1,14 @@
+---
+- name: Copy file to the remote server
+  hosts: all
+  become: yes
+
+
+  tasks: 
+    - name: Copy the config file
+      copy: 
+        src: /path/to/local/config.conf  # Path to local config file
+        dest: /etc/myapp/config.conf    # Destination on remote server
+        owner: root
+        group: root
+        mode: '0644'

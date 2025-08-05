@@ -1,0 +1,28 @@
+---
+- name: Set up SSH key-based auth
+  hosts: all
+  become: yes
+
+
+  tasks: 
+    - name: Create a new user
+      user:
+        name: ansibleuser
+        state: present
+
+
+    - name: Create .ssh directory
+      file: 
+       path: /home/ansibleuser/.ssh
+       state: directory
+       owner: ansibleuser
+       group: ansibleuser
+       mode: '0700'
+
+    - name: Add public key-based
+      copy: 
+        dst: /home/ansibleuser/.ssh/authorized_keys
+        content: "ssh-rsa AAAAB3... your-public-key"
+        owner: ansibleuser
+        group: ansibleuser
+        mode: '0600'

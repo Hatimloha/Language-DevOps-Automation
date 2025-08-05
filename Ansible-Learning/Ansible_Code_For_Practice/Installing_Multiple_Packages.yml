@@ -1,0 +1,12 @@
+---
+ - name: Installing Multiple Packages
+   hosts: Webserver
+   become: true
+
+   tasks:
+    - name: Install git, vim, and curl
+      package:
+        - git
+        - vim
+        - curl
+      state: present

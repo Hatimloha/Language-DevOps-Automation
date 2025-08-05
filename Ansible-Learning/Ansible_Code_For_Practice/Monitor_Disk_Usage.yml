@@ -1,0 +1,15 @@
+---
+- name: Monitor Disk Usage
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Check disk Usage
+      shell: df -h | grep /dev/sdal
+      register: disk_usage
+
+
+    - name: Alert if usage exceeds 80%
+      debug:
+        msg: "Disk usage is high: {{ disk_usage.stdout }}"
+      when: disk_usage.disk_usage.stdout | regex_search('80%|90%|100%')

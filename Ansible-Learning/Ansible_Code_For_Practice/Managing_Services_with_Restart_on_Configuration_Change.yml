@@ -1,0 +1,34 @@
+---
+- name: Install and configure service
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+    - name: Copy nginx configure file
+      copy: 
+        src: /path/to/nginx.conf
+        dst: /path/to/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+    - name: start nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+    - name: Reload nginx to apply new config
+      command: nginx -s Reload
+      notify:
+        - restart nginx service
+
+  handler: 
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restart
+
+  

@@ -1,0 +1,31 @@
+---
+- name: Install and start Apache web server
+  hosts: Webserver
+  become: true
+
+  tasks:
+    - name: Update apt package index
+      apt: 
+        update_cache: yes
+      when: ansible_os_family == ""Debian"
+    
+    - name: Install Apache
+      apt: 
+        name: Apache2
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Apacheof Redhats system
+      yum: 
+        name: httpd
+        state: present
+      when: ansible_os_family = "RedHat"
+
+    - name: Start Apache service
+      service:
+        name: "{{ Apach_service }}"
+        status: started
+        enable: yes
+    
+  vars: 
+    Apach_service: "{{'apache2' if ansible_os_family == 'Debian' else 'httpd } }"

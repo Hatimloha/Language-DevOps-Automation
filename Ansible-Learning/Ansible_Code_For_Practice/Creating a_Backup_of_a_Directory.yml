@@ -1,0 +1,14 @@
+---
+- name: Backup directory
+  hosts: db
+  become: yes
+
+  tasks:
+    - name: Creating Backup directory
+      file:
+        path: "/backup"
+        state: directory
+        mode: '0755'
+    - name: Copy /etc directory to backup
+      command: cp -r /etc/backup/etc_backup
+      creates: "/backup/etc_backup"

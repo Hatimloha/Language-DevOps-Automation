@@ -1,0 +1,23 @@
+---
+- name: Install Apache and Create a Web Page
+  hosts: webserver
+  become: yes # we can 
+
+  tasks: 
+    - name: Install Apache
+      apt: 
+        name: apache2
+        state: present
+      
+    - name: Create a custom index.html
+      copy: 
+        dst: /var/www/html/index.html
+        content: | 
+          <html>
+          <head>
+            <title>My Apache Server</title>
+          </head>
+          <body>
+            <h1>Welcome to Ansible Apache Server!</h1>
+          </body>
+          </html>

@@ -1,0 +1,16 @@
+---
+- name: create multiple user
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: User create 
+      user: 
+        name: "{{item}}"
+        state: present
+        group: sudo
+        shell: /bin/bash
+      with_item:
+        - alice
+        - bob
+        - charlie
